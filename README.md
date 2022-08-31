@@ -17,4 +17,4 @@ at the moment there are these renderers:
 this only supports a very limited and adapted markdown dialect.
 
 it only supports a few attributes.
-added inline code execution with $code$ and $$code$$ and the include statement $:includefile$
+added inline code execution with \$code\$ and \$\$code\$\$ and the include statement \$:includefile\$
