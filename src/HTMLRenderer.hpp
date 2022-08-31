@@ -19,7 +19,7 @@ namespace jp {
 class HTMLRenderer : public MarkdownRenderer<std::string> {
     
 public:
-    virtual std::string headline(const std::string &content, int level) override {
+    virtual std::string headline(std::string content, int level) override {
         return std::string("<h")+std::to_string(level)+">"+
         content+
         "</h"+std::to_string(level)+">";
@@ -33,7 +33,7 @@ public:
         return content;
     }
     
-    virtual std::string attribute(const std::string &content, enum MarkdownAttribute attr) override {
+    virtual std::string attribute(std::string content, enum MarkdownAttribute attr) override {
         std::string attrStr = "";
         switch (attr) {
             case Bold:
@@ -49,7 +49,7 @@ public:
         return std::string("<")+attrStr+">"+content+"</"+attrStr+">";
     }
     
-    virtual std::string code(const std::string &code, enum CodeType type) override { // fake code execution for testing
+    virtual std::string code(std::string code, enum CodeType type) override { // fake code execution for testing
         switch (type) {
             case Normal:
                 return "3";
@@ -64,7 +64,7 @@ public:
         return "";
     }
     
-    virtual std::string link(const std::string &content, const std::string &link) override {
+    virtual std::string link(std::string content, std::string link) override {
         return std::string("<a href=\"")+link+"\">"+content+"</a>";
     }
     

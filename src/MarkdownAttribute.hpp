@@ -9,7 +9,7 @@
 #define MarkdownAttribute_h
 
 enum MarkdownAttribute {
-    Bold, Italic, BoldItalic, Strikethrough, Underline
+    Normal, Bold, Italic, BoldItalic, Strikethrough, Underline
 };
 
 #endif /* MarkdownAttribute_h */

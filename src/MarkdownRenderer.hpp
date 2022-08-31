@@ -18,12 +18,12 @@ namespace jp {
 
 template <typename T> class MarkdownRenderer {
 public:
-    virtual T headline(const T &content, int level) = 0;
+    virtual T headline(T content, int level) = 0;
     virtual T newLine() = 0;
     virtual T text(const std::string &str) = 0;
-    virtual T attribute(const T &content, enum MarkdownAttribute attr) = 0;
-    virtual T link(const T &content, const T &link) = 0;
-    virtual T code(const T &code, enum CodeType type) = 0;
+    virtual T attribute(T content, enum MarkdownAttribute attr) = 0;
+    virtual T link(T content, T link) = 0;
+    virtual T code(T code, enum CodeType type) = 0;
     virtual T nothing() = 0;
 
     virtual T chain(const std::vector<T> &children) = 0;
