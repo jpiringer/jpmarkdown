@@ -13,6 +13,7 @@
 		305CBE9828BC16100036A5B5 /* PlainTextRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 305CBE9628BC16100036A5B5 /* PlainTextRenderer.hpp */; };
 		305CBEAD28BE255B0036A5B5 /* MarkdownGrammar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 305CBEAB28BE255B0036A5B5 /* MarkdownGrammar.hpp */; };
 		30623EC728BF5E1900A6355C /* MarkdownCode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 30623EC528BF5E1900A6355C /* MarkdownCode.hpp */; };
+		30623ECC28BF81AE00A6355C /* HTMLRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 30623ECB28BF81AE00A6355C /* HTMLRenderer.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		30623EC528BF5E1900A6355C /* MarkdownCode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MarkdownCode.hpp; sourceTree = "<group>"; };
 		30623EC828BF630D00A6355C /* Markdown.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Markdown.hpp; sourceTree = "<group>"; };
 		30623ECA28BF7F4600A6355C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		30623ECB28BF81AE00A6355C /* HTMLRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HTMLRenderer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				305CBEAB28BE255B0036A5B5 /* MarkdownGrammar.hpp */,
 				305CBE9228BC148F0036A5B5 /* MarkdownRenderer.hpp */,
 				305CBE9628BC16100036A5B5 /* PlainTextRenderer.hpp */,
+				30623ECB28BF81AE00A6355C /* HTMLRenderer.hpp */,
 				30623EC828BF630D00A6355C /* Markdown.hpp */,
 			);
 			path = src;
@@ -105,6 +108,7 @@
 				30623EC728BF5E1900A6355C /* MarkdownCode.hpp in Headers */,
 				305CBE9828BC16100036A5B5 /* PlainTextRenderer.hpp in Headers */,
 				305CBE7728BC11D50036A5B5 /* MarkdownParser.hpp in Headers */,
+				30623ECC28BF81AE00A6355C /* HTMLRenderer.hpp in Headers */,
 				305CBEAD28BE255B0036A5B5 /* MarkdownGrammar.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

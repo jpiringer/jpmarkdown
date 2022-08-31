@@ -9,6 +9,7 @@
 #define Markdown_h
 
 #include "PlainTextRenderer.hpp"
+#include "HTMLRenderer.hpp"
 
 #include "MarkdownParser.hpp"
 
