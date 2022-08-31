@@ -12,3 +12,9 @@ at the moment there are these renderers:
 - PlainTextRenderer: renders everything into a plain std::string. code execution does not work really. i only added some fake results for testing
 - HTMLRenderer: renders everything into a very simple html std::string. code execution does not work really. i only added some fake results for testing
 
+## markdown
+
+this only supports a very limited and adapted markdown dialect.
+
+it only supports a few attributes.
+added inline code execution with $code$ and $$code$$ and the include statement $:includefile$
