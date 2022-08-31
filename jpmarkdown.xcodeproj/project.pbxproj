@@ -29,6 +29,7 @@
 		30623EC328BF585700A6355C /* MarkdownAST.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MarkdownAST.hpp; sourceTree = "<group>"; };
 		30623EC528BF5E1900A6355C /* MarkdownCode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MarkdownCode.hpp; sourceTree = "<group>"; };
 		30623EC828BF630D00A6355C /* Markdown.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Markdown.hpp; sourceTree = "<group>"; };
+		30623ECA28BF7F4600A6355C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +53,7 @@
 		305CBE6A28BC11D50036A5B5 = {
 			isa = PBXGroup;
 			children = (
+				30623ECA28BF7F4600A6355C /* README.md */,
 				305CBEA628BC20680036A5B5 /* TODO.md */,
 				305CBE7528BC11D50036A5B5 /* src */,
 				305CBE8828BC131A0036A5B5 /* Tests */,
