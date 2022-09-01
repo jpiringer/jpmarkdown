@@ -65,6 +65,8 @@ public:
     }
 };
 
+template<typename T> using ASTHeadlinePtr = ASTHeadline<T> *;
+
 template <typename T> class ASTAttribute : public ASTNode<T> {
     ASTNodePtr<T> child;
     enum MarkdownAttribute attribute;
@@ -96,6 +98,9 @@ public:
     }
 };
 
+template<typename T> using ASTAttributePtr = ASTAttribute<T> *;
+
+
 template <typename T> class ASTCode : public ASTNode<T> {
     ASTNodePtr<T> code;
     enum CodeType type;
@@ -123,6 +128,8 @@ public:
     }
 };
 
+template<typename T> using ASTCodePtr = ASTCode<T> *;
+
 template <typename T> class ASTText : public ASTNode<T> {
     std::string text;
 public:
@@ -134,6 +141,8 @@ public:
         os << std::quoted(text);
     }
 };
+
+template<typename T> using ASTTextPtr = ASTText<T> *;
 
 template <typename T> class ASTNewline : public ASTNode<T> {
 public:
@@ -160,6 +169,9 @@ public:
         os << "[ASTLink " << *content << " -> " << (*getLink()) << "] ";
     }
 };
+
+template<typename T> using ASTLinkPtr = ASTLink<T> *;
+
 }
 
 #endif /* MarkdownAST_h */

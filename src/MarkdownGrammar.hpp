@@ -39,52 +39,73 @@ public:
     using Iterator = std::string::const_iterator;
 
     MarkdownGrammar() : MarkdownGrammar::base_type(start) {
-        start = chunks [qi::_val = qi::_1];
-        
-        chunks =
-                (chunk >> qi::eol >> chunks)
-                    [qi::_val = phx::new_<ASTContainer<T>>(qi::_1, phx::new_<ASTNewline<T>>(), qi::_2)] |
-                chunk
-                    [qi::_val = qi::_1];
-        
-        chunk %=
-                headline | normalChunk;
-
+        // text
         text = (+(qi::char_ - '*' - '$' - '[')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
         textWithoutNewline = (+(qi::char_ - '\n')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
-        code = (+(qi::char_ - '$')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
+
+        // emphasis
+        emphBlock = +(!qi::lit('*') >> normalBlock) [qi::_val = qi::_1];
+        emph =
+                (qi::char_('*') >> qi::char_('*') >> emphBlock >> qi::char_('*') >> qi::char_('*')) [qi::_val = phx::new_<ASTAttribute<T>>(qi::_3, Bold)];
+        
+        // strong
+        strongBlock = +(!qi::lit("**") >> normalBlock) [qi::_val = qi::_1];
+        strong =
+                (qi::char_('*') >> strongBlock >> qi::char_('*')) [qi::_val = phx::new_<ASTAttribute<T>>(qi::_2, Italic)];
+        
+        attributedText %= emph | strong;
+        
+        // code
+        codeText = (+(qi::char_ - '$')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
+        code =
+                (qi::char_('$') >> qi::char_(':') >> codeText >> qi::char_('$')) [qi::_val = phx::new_<ASTCode<T>>(qi::_3, Include)] | // include
+                (qi::char_('$') >> codeText >> qi::char_('$')) [qi::_val = phx::new_<ASTCode<T>>(qi::_2, Inline)] | // inline
+                (qi::char_('$') >> qi::char_('$') >> codeText >> qi::char_('$') >> qi::char_('$')) [qi::_val = phx::new_<ASTCode<T>>(qi::_3, Normal)]; // normal code
+        
+        // link
         link1Text = (+(qi::char_ - ']')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
         link2Text = (+(qi::char_ - ')')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
-
-        attributedText =
-                (qi::char_('*') >> qi::char_('*') >> text >> qi::char_('*') >> qi::char_('*')) [qi::_val = phx::new_<ASTAttribute<T>>(qi::_3, Bold)] |
-                (qi::char_('*') >> text >> qi::char_('*')) [qi::_val = phx::new_<ASTAttribute<T>>(qi::_2, Italic)] |
-                (qi::char_('$') >> qi::char_(':') >> code >> qi::char_('$')) [qi::_val = phx::new_<ASTCode<T>>(qi::_3, Include)] | // include
-                (qi::char_('$') >> code >> qi::char_('$')) [qi::_val = phx::new_<ASTCode<T>>(qi::_2, Inline)] | // inline
-                (qi::char_('$') >> qi::char_('$') >> code >> qi::char_('$') >> qi::char_('$')) [qi::_val = phx::new_<ASTCode<T>>(qi::_3, Normal)]; // normal code
-        
-        
         link =
-                (qi::char_('[') >> link1Text >> ']' >> '(' >> link2Text >> ')')
-                    [qi::_val = phx::new_<ASTLink<T>>(qi::_2, qi::_3)] |
-                (qi::char_('[') >> link1Text >> qi::char_(']'))
-                    [qi::_val = phx::new_<ASTLink<T>>(qi::_2, nullptr)];
-        
-        span %=
-                link | attributedText | text;
+                ('[' >> link1Text >> "](" >> link2Text >> ')')
+                    [qi::_val = phx::new_<ASTLink<T>>(qi::_1, qi::_2)] |
+                ('[' >> link1Text >> ']')
+                    [qi::_val = phx::new_<ASTLink<T>>(qi::_1, nullptr)];
 
-        normalChunk =
-                (span >> normalChunk)
-                    [qi::_val = phx::new_<ASTContainer<T>>(qi::_1, qi::_2)] |
-                span
-        [qi::_val = qi::_1] [qi::_val = qi::_1];
-        
+        // headline
         headline = (+qi::char_('#') >> (+qi::blank) >> textWithoutNewline)
             [qi::_val = phx::new_<ASTHeadline<T>>(qi::_3, qi::_1)];
+
+        span %=
+                link | attributedText | code | text;
+
+        normalBlock =
+                (span >> normalBlock)
+                    [qi::_val = phx::new_<ASTContainer<T>>(qi::_1, qi::_2)] |
+                span
+                    [qi::_val = qi::_1];
+        
+        blocks =
+                (block >> qi::eol >> blocks)
+                    [qi::_val = phx::new_<ASTContainer<T>>(qi::_1, phx::new_<ASTNewline<T>>(), qi::_2)] |
+                block
+                    [qi::_val = qi::_1];
+        
+        block %=
+                headline | normalBlock;
+        
+        start %= blocks;
     }
 
+    qi::rule<Iterator, ASTHeadlinePtr<T>()> headline;
+    qi::rule<Iterator, ASTLinkPtr<T>()> link;
+    qi::rule<Iterator, ASTCodePtr<T>()> code;
+    qi::rule<Iterator, ASTAttributePtr<T>()> attributedText, emph, strong;
+
+    qi::rule<Iterator, ASTTextPtr<T>()> text, textWithoutNewline, codeText, link1Text, link2Text;
     
-    qi::rule<Iterator, ASTNodePtr<T>()> start, headline, normalChunk, text, textWithoutNewline, chunks, chunk, span, attributedText, code, link, link1Text, link2Text;
+    qi::rule<Iterator, ASTNodePtr<T>()> normalBlock, blocks, block, span, emphBlock, strongBlock;
+    
+    qi::rule<Iterator, ASTNodePtr<T>()> start;
 };
 
 }
