@@ -21,9 +21,9 @@ it only supports a few attributes:
 
 ### inline code execution
 the renderer is responsible to render these correctly.
-$1+2$ executes a code snippet like on a command line and inserts the result.
-$$code$$ executes code. if the code returns a value this value is inserted. if not, it just executes.
-$:include.lua$ includes an external file and executes it. should not insert any text.
+`$code$` executes a code snippet like on a command line and inserts the result.
+`$$code$$` executes code. if the code returns a value this value is inserted. if not, it just executes.
+`$:include.lua$` includes an external file and executes it. should not insert any text.
 
 ### custom attributes
 custom attributes: %text%(attributename)
