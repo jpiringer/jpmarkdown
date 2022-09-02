@@ -34,7 +34,7 @@ public:
         return content;
     }
     
-    virtual std::string attribute(std::string content, enum MarkdownAttribute attr) override {
+    virtual std::string attribute(std::string content, enum MarkdownAttribute attr, std::string name) override {
         std::string attrStr = "";
         switch (attr) {
             case Bold:

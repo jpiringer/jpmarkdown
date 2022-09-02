@@ -99,11 +99,13 @@ bool testHTML(const std::string &input, const std::string &expectedOutput) {
 }
 
 - (void)testPlainTextCustomAttribute {
+    XCTAssert(testPlainText("%test%(blabla)", "test"));
     XCTAssert(testPlainText("%test%(upper)", "TEST"));
     XCTAssert(testPlainText("a %test%(upper)", "a TEST"));
     XCTAssert(testPlainText("b%test%(upper)", "bTEST"));
     XCTAssert(testPlainText("b%test%(upper)c", "bTESTc"));
     XCTAssert(testPlainText("b%TeSt%(lower)c", "btestc"));
+    XCTAssert(testPlainText("b%TeSt*TeSt*%(lower)c", "btesttestc"));
 }
 
 - (void)testPlainTextCode {

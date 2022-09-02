@@ -70,9 +70,10 @@ template<typename T> using ASTHeadlinePtr = ASTHeadline<T> *;
 template <typename T> class ASTAttribute : public ASTNode<T> {
     ASTNodePtr<T> child;
     enum MarkdownAttribute attribute;
+    std::string name;
 
 public:
-    ASTAttribute(const ASTNodePtr<T> &child, enum MarkdownAttribute attribute) : child(child), attribute(attribute) {}
+    ASTAttribute(const ASTNodePtr<T> &child, enum MarkdownAttribute attribute, std::string name = "") : child(child), attribute(attribute), name(name) {}
     ~ASTAttribute() override {delete child;}
 
     std::string getAttributeName() const {
@@ -87,12 +88,14 @@ public:
                 return "Strikethrough";
             case Underline:
                 return "Underline";
+            case Custom:
+                return std::string("Custom(")+name+")";
             default:
                 return "unknown";
         }
     }
     
-    T render(std::shared_ptr<MarkdownRenderer<T>> renderer) override {return renderer->attribute(child->render(renderer), attribute);}
+    T render(std::shared_ptr<MarkdownRenderer<T>> renderer) override {return renderer->attribute(child->render(renderer), attribute, name);}
     void dump(std::ostream& os) const override {
         os << "[ASTAttribute(" << getAttributeName() << ") " << *child << "] ";
     }

@@ -64,7 +64,7 @@ public:
     
     const T &getResult() {return result;}
     
-    void printAST() {if (outNode == nullptr) {std::cout << "ERRROR" << std::endl;} else {std::cout << *outNode << std::endl;}}
+    void printAST() {if (outNode == nullptr) {std::cout << "Parse error" << std::endl;} else {std::cout << *outNode << std::endl;}}
 };
 
 }

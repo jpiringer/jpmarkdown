@@ -73,13 +73,19 @@ public:
                     [qi::_val = phx::new_<ASTLink<T>>(qi::_1, qi::_2)] |
                 ('[' >> link1Text >> ']')
                     [qi::_val = phx::new_<ASTLink<T>>(qi::_1, nullptr)];
+        
+        customAttributeName %= (+(qi::char_ - ')'));
+        customAttributeBlock = +(!qi::lit("%") >> normalBlock) [qi::_val = qi::_1];
+        customAttribute =
+                ('%' >> customAttributeBlock >> "%(" >> customAttributeName >> ')')
+                    [qi::_val = phx::new_<ASTAttribute<T>>(qi::_1, Custom, qi::_2)];
 
         // headline
         headline = (+qi::char_('#') >> (+qi::blank) >> textWithoutNewline)
             [qi::_val = phx::new_<ASTHeadline<T>>(qi::_3, qi::_1)];
 
         span %=
-                link | attributedText | code | text;
+                link | customAttribute | attributedText | code | text;
 
         normalBlock =
                 (span >> normalBlock)
@@ -100,15 +106,16 @@ public:
     }
     
     qi::rule<Iterator, char()> specialChar, escapedChar, normalChar;
+    qi::rule<Iterator, std::string()> customAttributeName;
 
     qi::rule<Iterator, ASTHeadlinePtr<T>()> headline;
     qi::rule<Iterator, ASTLinkPtr<T>()> link;
     qi::rule<Iterator, ASTCodePtr<T>()> code;
-    qi::rule<Iterator, ASTAttributePtr<T>()> attributedText, emph, strong;
+    qi::rule<Iterator, ASTAttributePtr<T>()> attributedText, emph, strong, customAttribute;
 
     qi::rule<Iterator, ASTTextPtr<T>()> text, textWithoutNewline, codeText, link1Text, link2Text;
     
-    qi::rule<Iterator, ASTNodePtr<T>()> normalBlock, blocks, block, span, emphBlock, strongBlock;
+    qi::rule<Iterator, ASTNodePtr<T>()> normalBlock, blocks, block, span, emphBlock, strongBlock, customAttributeBlock;
     
     qi::rule<Iterator, ASTNodePtr<T>()> start;
 };

@@ -21,7 +21,7 @@ public:
     virtual T headline(T content, int level) = 0;
     virtual T newLine() = 0;
     virtual T text(const std::string &str) = 0;
-    virtual T attribute(T content, enum MarkdownAttribute attr) = 0;
+    virtual T attribute(T content, enum MarkdownAttribute attr, std::string name) = 0;
     virtual T link(T content, T link) = 0;
     virtual T code(T code, enum CodeType type) = 0;
     virtual T nothing() = 0;

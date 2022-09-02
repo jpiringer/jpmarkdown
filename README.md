@@ -16,5 +16,15 @@ at the moment there are these renderers:
 
 this only supports a very limited and adapted markdown dialect.
 
-it only supports a few attributes.
-added inline code execution.
+it only supports a few attributes:
+*italic*, **bold**, links, inline code execution (not specified in the standard specification), custom attributes (also not standard)
+
+### inline code execution
+the renderer is responsible to render these correctly.
+$1+2$ executes a code snippet like on a command line and inserts the result.
+$$code$$ executes code. if the code returns a value this value is inserted. if not, it just executes.
+$:include.lua$ includes an external file and executes it. should not insert any text.
+
+### custom attributes
+custom attributes: %text%(attributename)
+the renderer is responsible to render them correctly.

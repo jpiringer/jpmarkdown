@@ -19,6 +19,19 @@
 namespace jp {
 
 class PlainTextRenderer : public MarkdownRenderer<std::string> {
+    std::string str_tolower(std::string s) {
+        std::transform(s.begin(), s.end(), s.begin(),
+                       [](unsigned char c){ return std::tolower(c); } // correct
+                      );
+        return s;
+    }
+    
+    std::string str_toupper(std::string s) {
+        std::transform(s.begin(), s.end(), s.begin(),
+                       [](unsigned char c){ return std::toupper(c); } // correct
+                      );
+        return s;
+    }
     
 public:
     virtual std::string headline(std::string content, int level) override {
@@ -33,7 +46,15 @@ public:
         return content;
     }
     
-    virtual std::string attribute(std::string content, enum MarkdownAttribute attr) override {
+    virtual std::string attribute(std::string content, enum MarkdownAttribute attr, std::string name) override { // some example attributes (although they are not really attributes, but what can you do in plaintext?)
+        if (attr == Custom) {
+            if (name == "lower") {
+                return str_tolower(content);
+            }
+            else if (name == "upper") {
+                return str_toupper(content);
+            }
+        }
         return content;
     }
     
