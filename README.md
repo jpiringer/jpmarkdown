@@ -17,7 +17,7 @@ at the moment there are these renderers:
 this only supports a very limited and adapted markdown dialect.
 
 it only supports a few attributes:
-*italic*, **bold**, links, inline code execution (not specified in the standard specification), custom attributes (also not standard)
+`*italic*`, `**bold**`, `[link](reference)`, inline code execution (not specified in the standard specification), custom attributes (also not standard)
 
 ### inline code execution
 the renderer is responsible to render these correctly.
@@ -26,5 +26,5 @@ the renderer is responsible to render these correctly.
 `$:include.lua$` includes an external file and executes it. should not insert any text.
 
 ### custom attributes
-custom attributes: %text%(attributename)
+custom attributes: `%text%(attributename)`
 the renderer is responsible to render them correctly.
