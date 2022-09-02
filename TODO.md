@@ -1,7 +1,10 @@
 # TODO
 
-__fett__
-_kursiv_
+custom attributes:
+%attribute%(attrname)
+
+__bold__
+_italic_
 ~~strikethrough~~
 
 image in markdown:
@@ -9,10 +12,6 @@ image in markdown:
 oder:
 ![Engineering Flowchart](flowchart)
 function
-
-
-
-custom attribute
 
 # DONE
 
@@ -44,3 +43,7 @@ destructors for AST
 rendering
 
 This is an [inline link](https://example.com).
+
+escape characters:
+\$ \* \[ \%
+

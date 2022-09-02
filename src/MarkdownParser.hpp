@@ -53,8 +53,6 @@ public:
     void parse(const std::string &input) {
         try {
             PhraseParseOrDie(input, MarkdownGrammar<T>(), qi::space, outNode);
-
-            //std::cout << *outNode << std::endl;
             
             result = outNode->render(renderer);
         }
@@ -66,7 +64,7 @@ public:
     
     const T &getResult() {return result;}
     
-    void printAST() {std::cout << *outNode << std::endl;}
+    void printAST() {if (outNode == nullptr) {std::cout << "ERRROR" << std::endl;} else {std::cout << *outNode << std::endl;}}
 };
 
 }

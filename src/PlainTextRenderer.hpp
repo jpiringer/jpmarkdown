@@ -4,6 +4,8 @@
 //
 //  Created by joerg piringer on 28.08.22.
 //
+// the plain text renderer removes all formatting characters
+// it is intended mainly for testing the parser
 
 #ifndef PlainTextRenderer_hpp
 #define PlainTextRenderer_hpp

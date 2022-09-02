@@ -4,6 +4,7 @@
 //
 //  Created by joerg piringer on 28.08.22.
 //
+// the html renderer produces html snippets from markdown
 
 #ifndef HTMLRenderer_hpp
 #define HTMLRenderer_hpp

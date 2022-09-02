@@ -40,7 +40,10 @@ public:
 
     MarkdownGrammar() : MarkdownGrammar::base_type(start) {
         // text
-        text = (+(qi::char_ - '*' - '$' - '[')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
+        specialChar %= qi::char_("*[$%");
+        escapedChar %= qi::lit('\\') >> qi::char_;
+        normalChar %= qi::char_ - specialChar;
+        text = (+(escapedChar | normalChar)) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
         textWithoutNewline = (+(qi::char_ - '\n')) [qi::_val = phx::new_<ASTText<T>>(qi::_1)];
 
         // emphasis
@@ -95,6 +98,8 @@ public:
         
         start %= blocks;
     }
+    
+    qi::rule<Iterator, char()> specialChar, escapedChar, normalChar;
 
     qi::rule<Iterator, ASTHeadlinePtr<T>()> headline;
     qi::rule<Iterator, ASTLinkPtr<T>()> link;

@@ -9,7 +9,13 @@
 
 #include "Markdown.hpp"
 
+#include "TestGrammar.hpp"
+
 #define PRINT_AST 1
+
+namespace qi = boost::spirit::qi;
+namespace phx = boost::phoenix;
+
 
 @interface Tests : XCTestCase
 
@@ -23,6 +29,25 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+bool testTestGrammar(const std::string &input, const std::string &expectedOutput) {
+    jp::TestGrammar grammar;
+    std::string output;
+    
+    try {
+        PhraseParseOrDie(input, jp::TestGrammar(), qi::space, output);
+    }
+    catch (std::exception& e) {
+        std::cout << "EXCEPTION: " << e.what() << std::endl;
+    }
+    
+#if PRINT_AST
+    std::cout << input << " -> " << output << std::endl;
+    std::cout << "----------" << std::endl;
+#endif
+
+    return output == expectedOutput;
 }
 
 bool testPlainText(const std::string &input, const std::string &expectedOutput) {
@@ -50,6 +75,9 @@ bool testHTML(const std::string &input, const std::string &expectedOutput) {
 }
 
 - (void)testPlainText {
+    XCTAssert(testPlainText("äöüÄÖÜß", "äöüÄÖÜß"));
+    XCTAssert(testPlainText("1234567890abcdefghijklmnopqrstuvwxyz", "1234567890abcdefghijklmnopqrstuvwxyz"));
+    XCTAssert(testPlainText("normal line\\*\\$test", "normal line*$test"));
     XCTAssert(testPlainText("normal line", "normal line"));
     XCTAssert(testPlainText("# headline\n", "headline"));
     XCTAssert(testPlainText("# headline", "headline"));
@@ -59,6 +87,7 @@ bool testHTML(const std::string &input, const std::string &expectedOutput) {
     XCTAssert(testPlainText("a**bold**", "abold"));
     XCTAssert(testPlainText("**bold**\n*italic*", "bold\nitalic"));
     XCTAssert(testPlainText("**bold**a", "bolda"));
+    XCTAssert(testPlainText("**bo\\*ld**a", "bo*lda"));
     XCTAssert(testPlainText("that is *italic* and **bold**", "that is italic and bold"));
 }
 
@@ -67,6 +96,14 @@ bool testHTML(const std::string &input, const std::string &expectedOutput) {
     XCTAssert(testPlainText("[link](https://joerg.piringer.net)", "link"));
     XCTAssert(testPlainText("[link](https://joerg.piringer.net) a link was here", "link a link was here"));
     XCTAssert(testPlainText("hello this is a [link](https://joerg.piringer.net)", "hello this is a link"));
+}
+
+- (void)testPlainTextCustomAttribute {
+    XCTAssert(testPlainText("%test%(upper)", "TEST"));
+    XCTAssert(testPlainText("a %test%(upper)", "a TEST"));
+    XCTAssert(testPlainText("b%test%(upper)", "bTEST"));
+    XCTAssert(testPlainText("b%test%(upper)c", "bTESTc"));
+    XCTAssert(testPlainText("b%TeSt%(lower)c", "btestc"));
 }
 
 - (void)testPlainTextCode {
@@ -95,10 +132,19 @@ bool testHTML(const std::string &input, const std::string &expectedOutput) {
     XCTAssert(testHTML("hello this is a [link](https://joerg.piringer.net)", "hello this is a <a href=\"https://joerg.piringer.net\">link</a>"));
 }
 
+- (void)testHTMLCustomAttribute {
+    
+}
+
 - (void)testHTMLCode {
     XCTAssert(testHTML("embedded code $:test.lua$", "embedded code 5"));
     XCTAssert(testHTML("embedded code $1+3$", "embedded code 4"));
     XCTAssert(testHTML("embedded code $$\nreturn 1+2\n$$", "embedded code 3"));
+}
+
+- (void)testGrammar {
+    XCTAssert(testTestGrammar("abcd", "abcd"));
+    XCTAssert(testTestGrammar("ab\\*cd", "ab*cd"));
 }
 
 - (void)testPerformanceExample {
