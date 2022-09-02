@@ -13,7 +13,6 @@ at the moment there are these renderers:
 - HTMLRenderer: renders everything into a very simple html std::string. code execution does not work really. i only added some fake results for testing
 
 ## markdown
-
 this only supports a very limited and adapted markdown dialect.
 
 it only supports a few attributes:
@@ -28,3 +27,8 @@ the renderer is responsible to render these correctly.
 ### custom attributes
 custom attributes: `%text%(attributename)`
 the renderer is responsible to render them correctly.
+
+## tests
+
+the tests are written in objective-c++ and there's an xcode-project for that, but you can safely ignore that if you are not on a mac or don't care about the test.
+at the moment it fails one test for the html renderer because it does not correctly render linefeeds. i might change that in the future but it does not have a hight priority.
