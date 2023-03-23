@@ -14,7 +14,7 @@
 #include <iomanip>
 #include <memory>
 
-#include <boost/config/warning_disable.hpp>
+/*#include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
@@ -23,12 +23,16 @@
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/variant/recursive_variant.hpp>
 #include <boost/foreach.hpp>
-#include <boost/spirit/include/phoenix.hpp>
+#include <boost/spirit/include/phoenix.hpp>*/
+
+//#include <boost/config/warning_disable.hpp>
+#include <boost/spirit/include/qi.hpp>
+//#include <boost/phoenix.hpp>
 
 namespace jp {
 
 namespace qi = boost::spirit::qi;
-namespace phx = boost::phoenix;
+//namespace phx = boost::phoenix;
 
 inline std::string stringFromCharArray(const std::vector<char> &charArray) {
     std::string s(charArray.begin(), charArray.end());
@@ -47,16 +51,7 @@ public:
 
     qi::rule<Iterator, std::string()> start;
     
-    TestGrammar()  : TestGrammar::base_type(start) {
-        specialChar %= qi::char_("*[$");
-        escapedChar %= qi::lit('\\') >> qi::char_;
-        normalChar %= qi::char_ - specialChar;
-        character %= escapedChar | normalChar;
-        text %= (+character);// [qi::_val = stringFromCharArray(qi::_1)];
-        
-        start = text;
-    }
-    
+    TestGrammar();
 };
 
 }

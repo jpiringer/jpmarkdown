@@ -11,10 +11,10 @@
 		305CBE8A28BC131A0036A5B5 /* Tests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 305CBE8928BC131A0036A5B5 /* Tests.mm */; };
 		305CBE9428BC148F0036A5B5 /* MarkdownRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 305CBE9228BC148F0036A5B5 /* MarkdownRenderer.hpp */; };
 		305CBE9828BC16100036A5B5 /* PlainTextRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 305CBE9628BC16100036A5B5 /* PlainTextRenderer.hpp */; };
-		305CBEAD28BE255B0036A5B5 /* MarkdownGrammar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 305CBEAB28BE255B0036A5B5 /* MarkdownGrammar.hpp */; };
 		30623EC728BF5E1900A6355C /* MarkdownCode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 30623EC528BF5E1900A6355C /* MarkdownCode.hpp */; };
 		30623ECC28BF81AE00A6355C /* HTMLRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 30623ECB28BF81AE00A6355C /* HTMLRenderer.hpp */; };
-		30F9D1A428C2294E008DA172 /* TestGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30F9D1A228C2294E008DA172 /* TestGrammar.cpp */; };
+		3078A1E929CCFAE200D5BE7C /* TestGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30F9D1A228C2294E008DA172 /* TestGrammar.cpp */; };
+		3078A1EB29CCFEB500D5BE7C /* MarkdownGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3078A1EA29CCFEB500D5BE7C /* MarkdownGrammar.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +33,7 @@
 		30623EC828BF630D00A6355C /* Markdown.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Markdown.hpp; sourceTree = "<group>"; };
 		30623ECA28BF7F4600A6355C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		30623ECB28BF81AE00A6355C /* HTMLRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HTMLRenderer.hpp; sourceTree = "<group>"; };
+		3078A1EA29CCFEB500D5BE7C /* MarkdownGrammar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MarkdownGrammar.cpp; sourceTree = "<group>"; };
 		30F9D1A228C2294E008DA172 /* TestGrammar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TestGrammar.cpp; path = tests/TestGrammar.cpp; sourceTree = SOURCE_ROOT; };
 		30F9D1A328C2294E008DA172 /* TestGrammar.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TestGrammar.hpp; path = tests/TestGrammar.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -84,6 +85,7 @@
 				30623EC528BF5E1900A6355C /* MarkdownCode.hpp */,
 				30623EC228BF548D00A6355C /* MarkdownDefinitions.hpp */,
 				305CBEAB28BE255B0036A5B5 /* MarkdownGrammar.hpp */,
+				3078A1EA29CCFEB500D5BE7C /* MarkdownGrammar.cpp */,
 				305CBE9228BC148F0036A5B5 /* MarkdownRenderer.hpp */,
 				305CBE9628BC16100036A5B5 /* PlainTextRenderer.hpp */,
 				30623ECB28BF81AE00A6355C /* HTMLRenderer.hpp */,
@@ -114,7 +116,6 @@
 				305CBE9828BC16100036A5B5 /* PlainTextRenderer.hpp in Headers */,
 				305CBE7728BC11D50036A5B5 /* MarkdownParser.hpp in Headers */,
 				30623ECC28BF81AE00A6355C /* HTMLRenderer.hpp in Headers */,
-				305CBEAD28BE255B0036A5B5 /* MarkdownGrammar.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3078A1EB29CCFEB500D5BE7C /* MarkdownGrammar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				305CBE8A28BC131A0036A5B5 /* Tests.mm in Sources */,
-				30F9D1A428C2294E008DA172 /* TestGrammar.cpp in Sources */,
+				3078A1E929CCFAE200D5BE7C /* TestGrammar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
